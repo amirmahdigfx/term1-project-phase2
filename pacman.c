@@ -96,13 +96,13 @@ int update(){
 	game.pY += dy[curdir] * PACMANH / CYCLELENGTH;
 	if (game.curCycle % CYCLELENGTH == 0){
 		if (game.state[game.pR][game.pC] == 1) game.state[game.pR][game.pC] = 0,game.fruitnum--;
+		if (game.fruitnum == 0) return 1;
 		if (newdir != -1) curdir = newdir;
 		game.pR += dy[curdir];
 		game.pC += dx[curdir];
 		if (game.pR >= n || game.pR < 0 || game.pC < 0 || game.pC >= m || game.state[game.pR][game.pC] == -1 ) return -1;
 		//printf("at %d %d\n",game.pR,game.pC );
 		
-		if (game.fruitnum == 0) return 1;
 	}
 	game.curCycle++;
 	return 0;
