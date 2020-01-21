@@ -8,8 +8,8 @@
 
 #define INP_BSIZE 10
 #define MAX_T_SIZE 50
-#define MAX_ROW 5
-#define MAX_COL 10
+#define MAX_ROW 30
+#define MAX_COL 30
 #define MAX_FILE_PATH 250
 #define INF_DIST 1000000
 #define WALLC '#'
@@ -23,7 +23,7 @@ int curfr;
 const int CYCLELENGTH = 10;
 const int PACMANH = 50;
 const int PACMANW = 50;
-const int n = 5,m = 10;
+int n,m;
 const int totalSize = 50;
 const int nCell[4] = {1,4,-1,-4};
 const char comtochar[4] = {'r','d','l','u'};
@@ -63,9 +63,13 @@ void preproc(){
 	gets(fpath);
 	FILE *tfile = fopen(fpath,"r");
 	char currow[MAX_COL + 10];
-	for (int i = 0;i < n;i++){
-		fgets(currow,11,tfile);
-		for (int j = 0;j < m;j++){
+	int i = 0;
+	while(1){
+		if (feof(tfile)) break;
+		i++;
+		n++;
+		fgets(currow,MAX_COL,tfile);
+		for (int j = 0;currow[j] != '\n';j++,m = max(m,j + 1)){
 			switch(currow[j]){
 				case WALLC:
 					game.state[i][j] = -1;
@@ -80,7 +84,9 @@ void preproc(){
 				case PACMANC:
 					game.state[i][j] = 0;
 					game.pR = i;
+					game.pX = i * PACMANW;
 					game.pC = j;
+					game.pY = j * PACMANH;
 					break;
 			}
 				//printf("%d ",game.state[i][j]);
@@ -107,4 +113,3 @@ int update(){
 	game.curCycle++;
 	return 0;
 }
-
