@@ -64,7 +64,7 @@ void preproc(){
 	FILE *tfile = fopen(fpath,"r");
 	char currow[MAX_COL + 10];
 	for (int i = 0;i < n;i++){
-		fgets(currow,10,tfile);
+		fgets(currow,11,tfile);
 		for (int j = 0;j < m;j++){
 			switch(currow[j]){
 				case WALLC:
